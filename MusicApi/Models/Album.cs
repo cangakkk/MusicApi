@@ -6,10 +6,7 @@ namespace MusicApi.Models
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string ImageUrl { get; set; }
+		//[ForeignKey("ArtistId")]
 		public int ArtistId { get; set; }
-		[NotMapped]
-		public IFormFile Image { get; set; }
-		public ICollection<Song> Songs { get; set; }
 	}
 }

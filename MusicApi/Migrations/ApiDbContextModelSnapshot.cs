@@ -33,17 +33,11 @@ namespace MusicApi.Migrations
                     b.Property<int>("ArtistId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArtistId");
 
                     b.ToTable("Albums");
                 });
@@ -57,10 +51,6 @@ namespace MusicApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Gander")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -84,72 +74,26 @@ namespace MusicApi.Migrations
                     b.Property<int?>("AlbumId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ArtistId")
+                    b.Property<int?>("ArtistId")
                         .HasColumnType("int");
-
-                    b.Property<string>("AudioUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Duration")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsFeatured")
+                    b.Property<bool?>("IsFeatured")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UploadedDate")
+                    b.Property<DateTime?>("UploadedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlbumId");
-
-                    b.HasIndex("ArtistId");
-
                     b.ToTable("Songs");
-                });
-
-            modelBuilder.Entity("MusicApi.Models.Album", b =>
-                {
-                    b.HasOne("MusicApi.Models.Artist", null)
-                        .WithMany("Albums")
-                        .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MusicApi.Models.Song", b =>
-                {
-                    b.HasOne("MusicApi.Models.Album", null)
-                        .WithMany("Songs")
-                        .HasForeignKey("AlbumId");
-
-                    b.HasOne("MusicApi.Models.Artist", null)
-                        .WithMany("Songs")
-                        .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MusicApi.Models.Album", b =>
-                {
-                    b.Navigation("Songs");
-                });
-
-            modelBuilder.Entity("MusicApi.Models.Artist", b =>
-                {
-                    b.Navigation("Albums");
-
-                    b.Navigation("Songs");
                 });
 #pragma warning restore 612, 618
         }
